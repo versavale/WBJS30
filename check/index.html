@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox selector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>This is an inbox layout.</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check one item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Hold down your Shift key</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check a lower item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Everything in between should also be set to checked</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Try to do it without any libraries</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Just regular JavaScript</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Good Luck!</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Don't forget to tweet your result!</p>
+    </div>
+  </div>
+  <script>
+    const sel = [...document.querySelectorAll("input")];
+let shift = false;
+let pressed = [];
+
+  sel.forEach(function(item, idx) {
+    item.addEventListener("change", function() {
+      if (this.checked) {
+        pressed.push(idx);
+        console.log("pressed " + pressed);
+      }
+    });
+  });
+
+document.addEventListener("keyup", event => {
+  shift = false;
+  let init = pressed[0];
+  let finit = pressed.pop();
+
+  let span = [];
+  if (init < finit) {
+    for (let i = init; i <= finit; i++) {
+      span.push(i);
+    }
+  } else {
+    for (let x = finit; x <= init; x++) {
+      span.push(x);
+    }
+  }
+  checkAll(sel,span);
+});
+
+function checkAll(sel, span) {
+  for (let i = 0; i < sel.length; i++) {
+    if (span.includes(i)) {
+      sel[i].checked = true;
+    }
+  }
+}
+  </script>
+</body>
